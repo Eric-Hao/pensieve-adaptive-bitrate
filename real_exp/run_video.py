@@ -34,18 +34,18 @@ exp_id = sys.argv[3]
 # ---------------------------------------------------
 #          |
 #          v
-url = 'localhost/' + 'myindex_' + abr_algo + '.html'
+url = 'localhost:8080/' + 'myindex_' + abr_algo + '.html'
 
 # timeout signal
-signal.signal(signal.SIGALRM, timeout_handler)
-signal.alarm(run_time + 30)
+# signal.signal(signal.SIGALRM, timeout_handler)
+# signal.alarm(run_time + 30)
 	
 try:
 	# copy over the chrome user dir
 	default_chrome_user_dir = '../abr_browser_dir/chrome_data_dir'
 	chrome_user_dir = '/tmp/chrome_user_dir_real_exp_' + abr_algo
-	os.system('rm -r ' + chrome_user_dir)
-	os.system('cp -r ' + default_chrome_user_dir + ' ' + chrome_user_dir)
+	# os.system('rm -r ' + chrome_user_dir)
+	# os.system('cp -r ' + default_chrome_user_dir + ' ' + chrome_user_dir)
 	
 	# start abr algorithm server
 	if abr_algo == 'RL':
@@ -61,16 +61,17 @@ try:
 	sleep(2)
 	
 	# to not display the page in browser
-	display = Display(visible=0, size=(800,600))
-	display.start()
+	# display = Display(visible=0, size=(800,600))
+	# display.start()
 	
 	# initialize chrome driver
 	options=Options()
-	chrome_driver = '../abr_browser_dir/chromedriver'
+	# chrome_driver = '../abr_browser_dir/chromedriver'
+	chrome_driver = 'C:/Program Files(x86)/Google/Chrome/Application/chromedriver'
 	options.add_argument('--user-data-dir=' + chrome_user_dir)
 	options.add_argument('--ignore-certificate-errors')
-	driver=webdriver.Chrome(chrome_driver, chrome_options=options)
-	
+	# driver = webdriver.Chrome(chrome_driver, chrome_options=options)
+	driver = webdriver.Chrome(chrome_options=options)
 	# run chrome
 	driver.set_page_load_timeout(10)
 	driver.get(url)
@@ -78,19 +79,18 @@ try:
 	sleep(run_time)
 	
 	driver.quit()
-	display.stop()
+	# display.stop()
 	
 	# kill abr algorithm server
 	proc.send_signal(signal.SIGINT)
 	# proc.kill()
-	
-	print 'done'
-	
+	# print('done')
+
 except Exception as e:
-	try: 
-		display.stop()
-	except:
-		pass
+	# try:
+	# 	display.stop()
+	# except:
+	# 	pass
 	try:
 		driver.quit()
 	except:
@@ -100,5 +100,5 @@ except Exception as e:
 	except:
 		pass
 	
-	print e	
+	print(e)
 

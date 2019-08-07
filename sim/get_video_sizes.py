@@ -10,8 +10,8 @@ VIDEO_FOLDER = 'video'
 # the quality at video5 is the lowest and video1 is the highest
 
 
-for bitrate in xrange(BITRATE_LEVELS):
-	with open('video_size_' + str(bitrate), 'wb') as f:
+for bitrate in range(BITRATE_LEVELS):
+	with open('video_size_' + str(bitrate), 'w') as f:
 		for chunk_num in range(1, TOTAL_VIDEO_CHUNCK+1):
 			video_chunk_path = VIDEO_PATH + \
 							   VIDEO_FOLDER + \

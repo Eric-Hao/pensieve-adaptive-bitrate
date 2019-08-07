@@ -40,7 +40,7 @@ class Environment:
         self.last_mahimahi_time = self.cooked_time[self.mahimahi_ptr - 1]
 
         self.video_size = {}  # in bytes
-        for bitrate in xrange(BITRATE_LEVELS):
+        for bitrate in range(BITRATE_LEVELS):
             self.video_size[bitrate] = []
             with open(VIDEO_SIZE_FILE + str(bitrate)) as f:
                 for line in f:
@@ -62,7 +62,7 @@ class Environment:
                          * B_IN_MB / BITS_IN_BYTE
             duration = self.cooked_time[self.mahimahi_ptr] \
                        - self.last_mahimahi_time
-	    
+
             packet_payload = throughput * duration * PACKET_PAYLOAD_PORTION
 
             if video_chunk_counter_sent + packet_payload > video_chunk_size:
@@ -88,8 +88,8 @@ class Environment:
         delay *= MILLISECONDS_IN_SECOND
         delay += LINK_RTT
 
-	# add a multiplicative noise to the delay
-	delay *= np.random.uniform(NOISE_LOW, NOISE_HIGH)
+        # add a multiplicative noise to the delay
+        delay *= np.random.uniform(NOISE_LOW, NOISE_HIGH)
 
         # rebuffer time
         rebuf = np.maximum(delay - self.buffer_size, 0.0)
@@ -153,7 +153,7 @@ class Environment:
             self.last_mahimahi_time = self.cooked_time[self.mahimahi_ptr - 1]
 
         next_video_chunk_sizes = []
-        for i in xrange(BITRATE_LEVELS):
+        for i in range(BITRATE_LEVELS):
             next_video_chunk_sizes.append(self.video_size[i][self.video_chunk_counter])
 
         return delay, \

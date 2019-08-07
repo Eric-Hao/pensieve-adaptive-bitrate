@@ -39,7 +39,7 @@ class Environment:
         self.last_mahimahi_time = self.cooked_time[self.mahimahi_ptr - 1]
 
         self.video_size = {}  # in bytes
-        for bitrate in xrange(BITRATE_LEVELS):
+        for bitrate in range(BITRATE_LEVELS):
             self.video_size[bitrate] = []
             with open(VIDEO_SIZE_FILE + str(bitrate)) as f:
                 for line in f:
@@ -150,7 +150,7 @@ class Environment:
             self.last_mahimahi_time = self.cooked_time[self.mahimahi_ptr - 1]
 
         next_video_chunk_sizes = []
-        for i in xrange(BITRATE_LEVELS):
+        for i in range(BITRATE_LEVELS):
             next_video_chunk_sizes.append(self.video_size[i][self.video_chunk_counter])
 
         return delay, \
